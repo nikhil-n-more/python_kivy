@@ -9,6 +9,8 @@ from kivy.uix.button import Button
 class MyGridLayout(GridLayout):
     def __init__(self, **kwargs):
         super(MyGridLayout, self).__init__(**kwargs)
+
+        #Set Columns
         self.cols = 2
 
         self.add_widget(Label(text="Name: "))
@@ -18,13 +20,32 @@ class MyGridLayout(GridLayout):
 
         self.add_widget(Label(text="Favourite: "))
 
-        self.name = TextInput(multiline=False)
-        self.add_widget(self.name)
+        self.favourite = TextInput(multiline=False)
+        self.add_widget(self.favourite)
 
         self.add_widget(Label(text="Address: "))
 
-        self.name = TextInput(multiline=False)
-        self.add_widget(self.name)
+        self.address = TextInput(multiline=True)
+        self.add_widget(self.address)
+
+        #Create submit button
+        self.submit = Button(text="Submit", font_size=30)
+        #Bind the button
+        self.submit.bind(on_press=self.press)
+        self.add_widget(self.submit)
+
+    def press(self, instance):
+        name = self.name.text
+        favourite = self.favourite.text
+        address = self.address.text
+
+        #Print the info to screen
+        self.add_widget(Label(text=f'Hello {name} your favourite is {favourite} and your address is {address}'))
+
+        #Clear the input boxes
+        self.name = ""
+        self.favourite = ""
+        self.address = ""
 
 class SERApp(App):
     def build(self):
